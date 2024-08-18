@@ -1,4 +1,4 @@
-import { convRadiansDegrees, convDegreesRadians } from "./utils.js";
+import { convRadiansDegrees, convDegreesRadians, drawArc } from "./utils.js";
 
 const canvas = document.getElementById("animatedCanvas");
 const ctx = canvas.getContext("2d");
@@ -31,27 +31,34 @@ const center = {
 let angle = 0;
 let allowInput = false;
 
-const drawLine = () => {
+const drawRadius = () => {
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
     angle = angle >= 360 ? 0 : angle;
-    
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2;
     ctx.lineCap = 'round';
-    ctx.lineTo(
-        Math.cos(angle) * radius,
-        Math.sin(angle) * radius
-    );
-    ctx.strokeStyle = 'blue';
+    ctx.lineTo(x, y);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, 0);
+    ctx.strokeStyle = 'black';
     ctx.stroke();
     ctx.closePath();
+
+    drawArc(ctx, x, y, 5, 0, Math.PI * 2, true, 'black', 'white');
+
     ctx.restore();
+
+    drawArc(ctx, canvas.width / 2, canvas.height / 2, 25, angle, 0, true, 'black');
 }
 
-const updateData = (mouseY, mouseX) => {
+const updateData = () => {
     const degrees = convRadiansDegrees(angle);
     const radians = angle;
     const pDegrees = convRadiansDegrees(getPrincipalAngle(angle));
@@ -107,7 +114,7 @@ addEventListener("mousemove", function(e) {
     angle = Math.atan2(mouseY, -mouseX) + Math.PI;
 
     updateData();
-    drawLine();
+    drawRadius();
 });
 
 angleSourceInputOptions.forEach(element => {
@@ -119,7 +126,7 @@ angleSourceInputOptions.forEach(element => {
         if (allowInput) {
             angle = 0;
             updateData();
-            drawLine(); 
+            drawRadius(); 
         }
 
         angleSourceInputBox.style.display = (allowInput ? 'block' : 'none');
@@ -131,8 +138,8 @@ setAngleButton.addEventListener("click", function(e) {
     angle = convDegreesRadians(value);
 
     updateData();
-    drawLine();
+    drawRadius();
 });
 
 updateData();
-drawLine();
+drawRadius();

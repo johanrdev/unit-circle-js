@@ -1,3 +1,5 @@
+import { drawArc } from "./utils.js";
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const center = {
@@ -114,14 +116,6 @@ const drawText = (item, angle, radius) => {
         btoa('<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\n' + svg.outerHTML);
 }
 
-const drawArc = (x, y, radius, startAngle, endAngle, counterclockwise) => {
-    ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
-    ctx.stroke();
-    ctx.closePath();
-}
-
 const drawLine = (fromX, fromY, toX, toY) => {
     ctx.beginPath();
     ctx.lineWidth = 2;
@@ -156,7 +150,7 @@ for (let i = 0; i < unitCircleAngles.length; i++) {
     drawText(anglesInDegrees[i], unitCircleAngles[i], radius * 0.3);
 }
 
-drawArc(center.x, center.y, radius * 0.42, -Math.PI * 2, true);
-drawArc(center.x, center.y, radius * 0.04, -Math.PI * 2, true);
+drawArc(ctx, center.x, center.y, 30, 0, Math.PI * 2, true, null, '#fff');
+drawArc(ctx, center.x, center.y, radius * 0.42, 0, Math.PI * 2, true, 'black');
 drawLine(0, center.y, canvas.width, center.y);
 drawLine(center.x, 0, center.x, canvas.height);
