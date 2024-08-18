@@ -1,0 +1,77 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #333;
+    padding: 4rem 0;
+}
+
+#container {
+    position: relative;
+    width: 800px;
+    height: 800px;
+}
+
+#canvas {
+    background: #fff;
+}
+
+#animatedCanvas {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transform: scale(1, -1);
+}
+
+aside {
+    position: absolute;
+    right: calc(100% + 1rem);
+    top: 0;
+    width: 280px;
+}
+
+.section {
+    background: #fff;
+    padding: 1rem;
+    margin-bottom: .5rem;
+}
+
+.section > div:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.section h3 {
+    margin-top: 0;
+}
+
+#data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+}
+
+#data>dt {
+    padding-right: 8px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#data>dd {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#data>dd,
+#data>dt {
+    border-bottom: 1px #333 solid;
+}
+
+#angleSourceInputBox { display: none; }
