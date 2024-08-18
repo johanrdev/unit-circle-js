@@ -150,6 +150,7 @@ for (let i = 0; i < unitCircleAngles.length; i++) {
     drawText(anglesInDegrees[i], unitCircleAngles[i], radius * 0.3);
 }
 
+drawText("θ", Math.PI / 4, 16);
 drawArc(ctx, center.x, center.y, 30, 0, Math.PI * 2, true, null, '#fff');
 drawArc(ctx, center.x, center.y, radius * 0.42, 0, Math.PI * 2, true, 'black');
 drawLine(0, center.y, canvas.width, center.y);
